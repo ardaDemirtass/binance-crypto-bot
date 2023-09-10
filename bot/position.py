@@ -9,9 +9,6 @@ class Position:
         self.__Symbol = symbol
         self.__Date = datetime.now() 
         self.__InPosition = False
-        binanceAPI.apiKey = "s5GgONkYNu9Vdzhw9A0Q0YiPPVWJN96huS3VSMRWVyuwwj4xjPln4Aic3EUPf9gA"
-        binanceAPI.apiSecret = "4scsNT2GvO1KR6jLn9zPv9yfqarnhlt3lNNvEBxdMHdWZAN9dasGtrvlyatf3iF8"
-        
     @property
     def Date(self):
         return self.__Date

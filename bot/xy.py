@@ -7,8 +7,6 @@ from sklearn.preprocessing import StandardScaler
 class XY:
     def __init__(self, symbol):
         self.__Symbol = symbol
-        binanceAPI.apiKey = "s5GgONkYNu9Vdzhw9A0Q0YiPPVWJN96huS3VSMRWVyuwwj4xjPln4Aic3EUPf9gA"
-        binanceAPI.apiSecret = "4scsNT2GvO1KR6jLn9zPv9yfqarnhlt3lNNvEBxdMHdWZAN9dasGtrvlyatf3iF8"
         self.__X : pd.DataFrame
         self.__Y : pd.DataFrame
         self.__All : pd.DataFrame

@@ -13,8 +13,6 @@ class Bot:
         self.__InPosition = False
         self.__Position = None
         self.__RegType = regtype
-        binanceAPI.apiKey = "s5GgONkYNu9Vdzhw9A0Q0YiPPVWJN96huS3VSMRWVyuwwj4xjPln4Aic3EUPf9gA"
-        binanceAPI.apiSecret = "4scsNT2GvO1KR6jLn9zPv9yfqarnhlt3lNNvEBxdMHdWZAN9dasGtrvlyatf3iF8"
 
     @property
     def Models(self):
