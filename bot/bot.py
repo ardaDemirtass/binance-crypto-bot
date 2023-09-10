@@ -36,7 +36,8 @@ class Bot:
                 le = pf.fit_transform(np.array([len(binanceAPI.priceHistory(symbol)) - 1]).reshape(1,-1))
             else:
                 le = [[len(binanceAPI.priceHistory(symbol)) - 1]]
-            predict = self.Models[symbol].predict(le)
+            model = self.Models[symbol]
+            predict = model.scy.inverse_transform(model.GetModel().predict(model.scx.transform(le)))
             errorMargin = ((predict - currentPrice) / currentPrice) * 100
             st = f"""
 **********

@@ -20,4 +20,7 @@ class PrModel(BaseModel):
         if not os.path.exists(f"{self.Symbol}"):
             os.mkdir(f"{self.Symbol}")
         filename = f"{self.Symbol}/PolynomialRegression.pickle"
-        pickle.dump(self.__lr, open(filename, "wb"))
+        pickle.dump(self, open(filename, "wb"))
+
+    def GetModel(self):
+        return self.__lr

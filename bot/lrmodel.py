@@ -16,14 +16,17 @@ class LrModel(BaseModel):
         self.__lr = LinearRegression()
 
     def CreateModel(self):
-        self.__lr.fit(self.Xtrain, self.Ytrain)
+        self.__lr.fit(self.ScaledX, self.ScaledY)
         self.SetIsModelCreated()
     
     def SaveModel(self):
         if not os.path.exists(f"{self.Symbol}"):
             os.mkdir(f"{self.Symbol}")
         modelFileName = f"{self.Symbol}/LinearRegression.pickle"
-        pickle.dump(self.__lr, open(modelFileName, "wb"))
+        pickle.dump(self, open(modelFileName, "wb"))
+
+    def GetModel(self):
+        return self.__lr
 
 
 """

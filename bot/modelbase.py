@@ -14,14 +14,24 @@ class BaseModel(ABC):
         self.__xtest : pd.DataFrame
         self.__ytrain : pd.DataFrame
         self.__ytest : pd.DataFrame
-        self.__sc = StandardScaler()
-        self.__sc2 = StandardScaler()
+        self.__scx = StandardScaler()
+        self.__scy = StandardScaler()
+        self.__scaledx = None
+        self.__scaledy = None
         self.__GetDataReady()
         self.__isModelCreated = False
         self.__symbol = symbol
 
     def SetIsModelCreated(self):
         self.__isModelCreated = True
+
+    @property
+    def ScaledX(self):
+        return self.__scaledx
+    
+    @property
+    def ScaledY(self):
+        return self.__scaledy
 
     @property
     def Symbol(self):
@@ -32,12 +42,12 @@ class BaseModel(ABC):
         return self.__isModelCreated
 
     @property
-    def sc(self):
-        return self.__sc
+    def scx(self):
+        return self.__scx
     
     @property
-    def sc2(self):
-        return self.__sc2
+    def scy(self):
+        return self.__scy
 
     @property
     def Xtrain(self):
@@ -71,6 +81,8 @@ class BaseModel(ABC):
         self.__xtrain, self.__xtest, self.__ytrain, self.__ytest = train_test_split(self.__input, self.__output, test_size=0.33, random_state=0)
         self.__xtrain = self.__xtrain.sort_index()
         self.__ytrain = self.__ytrain.sort_index()
+        self.__scaledx = self.__scx.fit_transform(self.__xtrain)
+        self.__scaledy = self.__scy.fit_transform(self.__ytrain)
 
     def __GetDataReady(self):
         self.__CreateTrainTest()
@@ -81,4 +93,8 @@ class BaseModel(ABC):
 
     @abstractmethod
     def SaveModel(self):
+        pass
+
+    @abstractmethod
+    def GetModel(self):
         pass

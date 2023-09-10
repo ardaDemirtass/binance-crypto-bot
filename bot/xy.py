@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 import requests
 from binanceapibase import binanceAPI
+from sklearn.preprocessing import StandardScaler
 
 class XY:
     def __init__(self, symbol):
