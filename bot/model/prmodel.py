@@ -4,10 +4,12 @@ from model.modelbase import BaseModel
 import pickle
 import os
 from sklearn.preprocessing import PolynomialFeatures
+import matplotlib.pyplot as plt
+from xy import XY
 
 class PrModel(BaseModel):
-    def __init__(self, input: pd.DataFrame, output: pd.DataFrame, symbol: str, degree : int):
-        super().__init__(input, output, symbol)
+    def __init__(self, xy : XY, symbol: str, degree : int):
+        super().__init__(xy, symbol)
         self.__lr = LinearRegression()
         self.__pf = PolynomialFeatures(degree=degree)
 
@@ -23,7 +25,12 @@ class PrModel(BaseModel):
         pickle.dump(self, open(filename, "wb"))
 
     def Predict(self, pr):
-        x_poly = self.__pf.fit_transform(pr)
-        prediction = self.scy.inverse_transform(self.__lr.predict(self.scx.fit_transform(x_poly)))
+        x_poly = self.__pf.fit_transform(self.scx.fit_transform(pr))
+        prediction = self.scy.inverse_transform(self.__lr.predict(x_poly))
         return prediction
+    
+    def DrawGraph(self):
+        plt.plot(self.Input, self.Output, color="red")
+        plt.plot(self.Input, self.Predict(self.Input), color="blue")
+        plt.show()
     

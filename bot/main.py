@@ -16,6 +16,28 @@ import time
 import os
 from model.svrmodel import SvrModel
 
+print("type **help for commands")
+while True:
+    command = input('->')
+    commandSplit = command.split('-')
+    if commandSplit[0] == "**drawgraph":
+        xyz = XY(commandSplit[1])#class to create x and y data of model
+        if commandSplit[2] == "PR":
+            model = PrModel(xyz, commandSplit[1], 2)
+        elif commandSplit[2] == "LR":
+            model = LrModel(xyz,commandSplit[1])
+        elif commandSplit[2] == "SVR":
+            model = SvrModel(xyz, commandSplit[1])
+        model.CreateModel()
+        model.DrawGraph()
+
+    if commandSplit[0] == "**runbot":
+        break
+
+    if commandSplit[0] == "**help":
+        print("to draw graph, type **drawgraph-SYMBOL-ALGORITH(example:**drawgraph-ETHBUSD-LR)")
+        print("to run bot, type **runbot")
+
 symbols = input("WRITE SYMBOLS (EXAMPLE:ETHBUSD,BTCBUSD) : ")
 symbolList = symbols.split(',')
 regtype = input("CHOOSE THE ALGORITHM (TYPE LR or PR or SVR) : ")
@@ -26,13 +48,12 @@ while True:
     if counter == 0:
         for symbol in symbolList:
             xy = XY(symbol)#class to create x and y data of model
-            xy.SetXY()
             if regtype == "LR":
-                model = LrModel(xy.X, xy.Y, symbol)
+                model = LrModel(xy, symbol)
             elif regtype == "PR":
-                model = PrModel(xy.X, xy.Y, symbol, 2)
+                model = PrModel(xy, symbol, 2)
             elif regtype == "SVR":
-                model = SvrModel(xy.X, xy.Y, symbol)
+                model = SvrModel(xy, symbol)
             model.CreateModel()
             model.SaveModel()
     elif counter == 60:

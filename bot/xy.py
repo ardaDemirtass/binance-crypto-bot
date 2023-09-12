@@ -10,8 +10,9 @@ class XY:
         self.__X : pd.DataFrame
         self.__Y : pd.DataFrame
         self.__All : pd.DataFrame
+        self.__SetXY()
 
-    def SetXY(self):
+    def __SetXY(self):
         klines = binanceAPI.priceHistory(self.__Symbol)
         prices = []
         for kline in klines:

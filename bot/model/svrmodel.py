@@ -4,10 +4,12 @@ from model.modelbase import BaseModel
 import pandas as pd
 import os
 import pickle
+import matplotlib.pyplot as plt
+from xy import XY
 
 class SvrModel(BaseModel):
-    def __init__(self, input: pd.DataFrame, output: pd.DataFrame, symbol: str):
-        super().__init__(input, output, symbol)
+    def __init__(self, xy : XY, symbol: str):
+        super().__init__(xy, symbol)
         self.__svr = SVR(kernel="rbf") 
 
     def CreateModel(self):
@@ -21,5 +23,10 @@ class SvrModel(BaseModel):
         pickle.dump(self, open(modelFileName, "wb"))
 
     def Predict(self, pr):
-        prediction = self.scy.inverse_transform(self.__svr.predict(self.scx.fit_transform(pr)).reshape(1,1))
+        prediction = self.scy.inverse_transform(self.__svr.predict(self.scx.fit_transform(pr)).reshape(-1,1))
         return prediction
+    
+    def DrawGraph(self):
+        plt.plot(self.Input, self.Output, color="red")
+        plt.plot(self.Input, self.Predict(self.Input), color="blue")
+        plt.show()

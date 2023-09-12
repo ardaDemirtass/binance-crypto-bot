@@ -5,11 +5,12 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.impute import SimpleImputer
 from abc import ABC, abstractmethod
 from sklearn.model_selection import train_test_split
+from xy import XY
 
 class BaseModel(ABC):
-    def __init__(self, input : pd.DataFrame,  output : pd.DataFrame, symbol : str):
-        self.__input = input
-        self.__output = output
+    def __init__(self, xy : XY, symbol : str):
+        self.__input = xy.X
+        self.__output = xy.Y
         self.__xtrain : pd.DataFrame
         self.__xtest : pd.DataFrame
         self.__ytrain : pd.DataFrame
@@ -95,4 +96,8 @@ class BaseModel(ABC):
 
     @abstractmethod
     def Predict(self, pr):
+        pass
+
+    @abstractmethod
+    def DrawGraph(self):
         pass

@@ -8,10 +8,11 @@ import matplotlib.pyplot as plt
 from model.loadmodels import LoadModel
 from sklearn.preprocessing import StandardScaler
 from model.prmodel import PrModel
+from xy import XY
 
 class LrModel(BaseModel):
-    def __init__(self, input: pd.DataFrame, output: pd.DataFrame, symbol : str):
-        super().__init__(input, output, symbol)
+    def __init__(self, xy : XY, symbol : str):
+        super().__init__(xy, symbol)
         self.__lr = LinearRegression()
 
     def CreateModel(self):
@@ -27,6 +28,11 @@ class LrModel(BaseModel):
     def Predict(self, pr):
         prediction = self.scy.inverse_transform(self.__lr.predict(self.scx.fit_transform(pr)))
         return prediction
+    
+    def DrawGraph(self):
+        plt.plot(self.Input, self.Output, color="red")
+        plt.plot(self.Input, self.Predict(self.Input), color="blue")
+        plt.show()
 
 
 """
