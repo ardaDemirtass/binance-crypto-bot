@@ -30,7 +30,7 @@ class Bot:
         for symbol in self.__Symbols:
             currentPrice = binanceAPI.currentPrice(symbol=symbol)
             model = self.Models[symbol]
-            le = [[len(binanceAPI.priceHistory(symbol)) - 1]]
+            le = [[len(binanceAPI.priceHistory(symbol))]]
             predict = model.Predict(le)
             errorMargin = ((predict - currentPrice) / currentPrice) * 100
             st = f"""

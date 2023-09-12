@@ -13,7 +13,7 @@ class LoadModel:
         self.__Load()
         
     def __Load(self):
-        with open(f'{self.__Symbol}/{self.__Type}.pickle', 'rb') as f:
+        with open(f'savedsymbols/{self.__Symbol}/{self.__Type}.pickle', 'rb') as f:
             self.__Model = pickle.load(f)
 
     @property

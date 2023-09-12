@@ -19,9 +19,9 @@ class PrModel(BaseModel):
         self.SetIsModelCreated()
 
     def SaveModel(self):
-        if not os.path.exists(f"{self.Symbol}"):
-            os.mkdir(f"{self.Symbol}")
-        filename = f"{self.Symbol}/PR.pickle"
+        if not os.path.exists(f"savedsymbols/{self.Symbol}"):
+            os.mkdir(f"savedsymbols/{self.Symbol}")
+        filename = f"savedsymbols/{self.Symbol}/PR.pickle"
         pickle.dump(self, open(filename, "wb"))
 
     def Predict(self, pr):

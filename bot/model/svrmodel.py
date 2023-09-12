@@ -17,9 +17,9 @@ class SvrModel(BaseModel):
         self.SetIsModelCreated()
 
     def SaveModel(self):
-        if not os.path.exists(f"{self.Symbol}"):
-            os.mkdir(f"{self.Symbol}")
-        modelFileName = f"{self.Symbol}/SVR.pickle"
+        if not os.path.exists(f"savedsymbols/{self.Symbol}"):
+            os.mkdir(f"savedsymbols/{self.Symbol}")
+        modelFileName = f"savedsymbols/{self.Symbol}/SVR.pickle"
         pickle.dump(self, open(modelFileName, "wb"))
 
     def Predict(self, pr):
