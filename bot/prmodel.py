@@ -12,15 +12,19 @@ class PrModel(BaseModel):
         self.__pf = PolynomialFeatures(degree=degree)
 
     def CreateModel(self):
-        x_poly = self.__pf.fit_transform(self.Input)
-        self.__lr.fit(x_poly, self.Output)
+        x_poly = self.__pf.fit_transform(self.ScaledX)
+        self.__lr.fit(x_poly, self.ScaledY)
         self.SetIsModelCreated()
 
     def SaveModel(self):
         if not os.path.exists(f"{self.Symbol}"):
             os.mkdir(f"{self.Symbol}")
-        filename = f"{self.Symbol}/PolynomialRegression.pickle"
+        filename = f"{self.Symbol}/PR.pickle"
         pickle.dump(self, open(filename, "wb"))
 
     def GetModel(self):
         return self.__lr
+    
+    def GetPf(self):
+        return self.__pf
+    

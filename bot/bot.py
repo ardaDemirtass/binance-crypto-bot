@@ -29,13 +29,12 @@ class Bot:
     def __SearchForPosition(self):
         for symbol in self.__Symbols:
             currentPrice = binanceAPI.currentPrice(symbol=symbol)
-            if self.__RegType == "PolynomialRegression":
-                pf = PolynomialFeatures(degree=2)
-                le = pf.fit_transform(np.array([len(binanceAPI.priceHistory(symbol)) - 1]).reshape(1,-1))
+            model = self.Models[symbol]
+            if self.__RegType == "PR":
+                le = model.GetPf().fit_transform([[len(binanceAPI.priceHistory(symbol)) - 1]])
             else:
                 le = [[len(binanceAPI.priceHistory(symbol)) - 1]]
-            model = self.Models[symbol]
-            predict = model.scy.inverse_transform(model.GetModel().predict(model.scx.transform(le)))
+            predict = model.scy.inverse_transform(model.GetModel().predict(model.scx.fit_transform(le)).reshape(1,1))
             errorMargin = ((predict - currentPrice) / currentPrice) * 100
             st = f"""
 **********

@@ -14,25 +14,28 @@ from bot import Bot
 from xy import XY
 import time
 import os
+from svrmodel import SvrModel
 
-symbols = input("WRITE SYMBOLS (EXAMPLE:ETHBUSD,ETHBUSD) : ")
+symbols = input("WRITE SYMBOLS (EXAMPLE:ETHBUSD,BTCBUSD) : ")
 symbolList = symbols.split(',')
-regtype = input("LINEAR REG or POLYNOMIAL REG (TYPE LinearRegression or PolynomialRegression) : ")
+regtype = input("CHOOSE THE ALGORITHM (TYPE LR or PR or SVR) : ")
 
 bot = Bot(symbolList, regtype)
 counter = 0
 while True:
-    for symbol in symbolList:
-        if counter == 0:
+    if counter == 0:
+        for symbol in symbolList:
             xy = XY(symbol)#class to create x and y data of model
             xy.SetXY()
-            if regtype == "LinearRegression":
+            if regtype == "LR":
                 model = LrModel(xy.X, xy.Y, symbol)
-            elif regtype == "PolynomialRegression":
+            elif regtype == "PR":
                 model = PrModel(xy.X, xy.Y, symbol, 2)
+            elif regtype == "SVR":
+                model = SvrModel(xy.X, xy.Y, symbol)
             model.CreateModel()
             model.SaveModel()
-        if counter == 60:
+    elif counter == 60:
             counter = 0
     bot.Start()
     counter += 1

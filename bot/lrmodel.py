@@ -22,7 +22,7 @@ class LrModel(BaseModel):
     def SaveModel(self):
         if not os.path.exists(f"{self.Symbol}"):
             os.mkdir(f"{self.Symbol}")
-        modelFileName = f"{self.Symbol}/LinearRegression.pickle"
+        modelFileName = f"{self.Symbol}/LR.pickle"
         pickle.dump(self, open(modelFileName, "wb"))
 
     def GetModel(self):
