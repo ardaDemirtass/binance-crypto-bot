@@ -29,8 +29,3 @@ class PrModel(BaseModel):
         prediction = self.scy.inverse_transform(self.__lr.predict(x_poly))
         return prediction
     
-    def DrawGraph(self):
-        plt.plot(self.Input, self.Output, color="red")
-        plt.plot(self.Input, self.Predict(self.Input), color="blue")
-        plt.show()
-    

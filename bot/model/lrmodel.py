@@ -9,6 +9,7 @@ from model.loadmodels import LoadModel
 from sklearn.preprocessing import StandardScaler
 from model.prmodel import PrModel
 from xy import XY
+import numpy as np
 
 class LrModel(BaseModel):
     def __init__(self, xy : XY, symbol : str):
@@ -28,11 +29,6 @@ class LrModel(BaseModel):
     def Predict(self, pr):
         prediction = self.scy.inverse_transform(self.__lr.predict(self.scx.fit_transform(pr)))
         return prediction
-    
-    def DrawGraph(self):
-        plt.plot(self.Input, self.Output, color="red")
-        plt.plot(self.Input, self.Predict(self.Input), color="blue")
-        plt.show()
 
 
 """

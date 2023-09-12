@@ -26,7 +26,3 @@ class SvrModel(BaseModel):
         prediction = self.scy.inverse_transform(self.__svr.predict(self.scx.fit_transform(pr)).reshape(-1,1))
         return prediction
     
-    def DrawGraph(self):
-        plt.plot(self.Input, self.Output, color="red")
-        plt.plot(self.Input, self.Predict(self.Input), color="blue")
-        plt.show()

@@ -15,6 +15,8 @@ from xy import XY
 import time
 import os
 from model.svrmodel import SvrModel
+from model.graph import DrawGraph
+import numpy as np
 
 print("type **help for commands")
 while True:
@@ -22,14 +24,17 @@ while True:
     commandSplit = command.split('-')
     if commandSplit[0] == "**drawgraph":
         xyz = XY(commandSplit[1])#class to create x and y data of model
-        if commandSplit[2] == "PR":
-            model = PrModel(xyz, commandSplit[1], 2)
-        elif commandSplit[2] == "LR":
-            model = LrModel(xyz,commandSplit[1])
-        elif commandSplit[2] == "SVR":
-            model = SvrModel(xyz, commandSplit[1])
-        model.CreateModel()
-        model.DrawGraph()
+        lrmodel = LrModel(xyz, commandSplit[1])
+        svrmodel = SvrModel(xyz, commandSplit[1])
+        prmodel = PrModel(xyz, commandSplit[1], 4)
+        lrmodel.CreateModel()
+        svrmodel.CreateModel()
+        prmodel.CreateModel()
+        arr1 = xyz.X.values
+        arr2 = np.array(range(len(arr1) + 1, len(arr1) + 400))
+        arrconc = np.append(arr1, arr2)
+        arrconcdf = pd.DataFrame(data=arrconc, index=arrconc, columns=['x'])
+        DrawGraph(xyz, arrconcdf, [lrmodel.Predict(arrconcdf),prmodel.Predict(arrconcdf),svrmodel.Predict(arrconcdf)], commandSplit[1])
 
     if commandSplit[0] == "**runbot":
         break
@@ -51,7 +56,7 @@ while True:
             if regtype == "LR":
                 model = LrModel(xy, symbol)
             elif regtype == "PR":
-                model = PrModel(xy, symbol, 2)
+                model = PrModel(xy, symbol, 4)
             elif regtype == "SVR":
                 model = SvrModel(xy, symbol)
             model.CreateModel()

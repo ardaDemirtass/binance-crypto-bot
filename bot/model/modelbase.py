@@ -97,7 +97,3 @@ class BaseModel(ABC):
     @abstractmethod
     def Predict(self, pr):
         pass
-
-    @abstractmethod
-    def DrawGraph(self):
-        pass
