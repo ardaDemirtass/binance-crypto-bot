@@ -1,14 +1,13 @@
 import pandas as pd
 from sklearn.linear_model import LinearRegression
-from modelbase import BaseModel
+from model.modelbase import BaseModel
 import pickle
 import os
 from sklearn.preprocessing import PolynomialFeatures
-from binanceapibase import binanceAPI
 import matplotlib.pyplot as plt
-from loadmodels import LoadModel
+from model.loadmodels import LoadModel
 from sklearn.preprocessing import StandardScaler
-from prmodel import PrModel
+from model.prmodel import PrModel
 
 class LrModel(BaseModel):
     def __init__(self, input: pd.DataFrame, output: pd.DataFrame, symbol : str):

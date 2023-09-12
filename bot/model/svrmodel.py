@@ -1,9 +1,10 @@
 import pandas as pd
 from sklearn.svm import SVR
-from modelbase import BaseModel
+from model.modelbase import BaseModel
 import pandas as pd
 import os
 import pickle
+
 class SvrModel(BaseModel):
     def __init__(self, input: pd.DataFrame, output: pd.DataFrame, symbol: str):
         super().__init__(input, output, symbol)

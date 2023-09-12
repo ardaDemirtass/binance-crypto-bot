@@ -4,17 +4,17 @@ import warnings
 warnings.warn = warn
 
 import pandas as pd
-from lrmodel import LrModel
-from prmodel import PrModel
-from loadmodels import LoadModel
-from binanceapibase import binanceAPI
+from model.lrmodel import LrModel
+from model.prmodel import PrModel
+from model.loadmodels import LoadModel
+from binanceapi.binanceapibase import binanceAPI
 import os
-from positionsymbol import Symbol
+from position.positionsymbol import Symbol
 from bot import Bot
 from xy import XY
 import time
 import os
-from svrmodel import SvrModel
+from model.svrmodel import SvrModel
 
 symbols = input("WRITE SYMBOLS (EXAMPLE:ETHBUSD,BTCBUSD) : ")
 symbolList = symbols.split(',')

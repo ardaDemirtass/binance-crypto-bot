@@ -1,4 +1,4 @@
-from positionsymbol import Symbol
+from position.positionsymbol import Symbol
 from datetime import datetime
 
 class Log:

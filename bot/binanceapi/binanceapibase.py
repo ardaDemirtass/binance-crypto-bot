@@ -5,7 +5,7 @@ import requests
 import pandas as pd
 
 class binanceAPI(object):
-    api = pd.read_csv('api.csv')
+    api = pd.read_csv('binanceapi/api.csv')
     apiKey = str(api.iloc[:,0:1].values)
     apiSecret = str(api.iloc[:,1:2].values)
     client = Client(api_key=apiKey, api_secret=apiSecret)

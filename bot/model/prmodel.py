@@ -1,6 +1,6 @@
 import pandas as pd
 from sklearn.linear_model import LinearRegression
-from modelbase import BaseModel
+from model.modelbase import BaseModel
 import pickle
 import os
 from sklearn.preprocessing import PolynomialFeatures

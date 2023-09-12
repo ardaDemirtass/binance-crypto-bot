@@ -1,8 +1,8 @@
 import pandas as pd
 import numpy as np
-from positionsymbol import Symbol
+from position.positionsymbol import Symbol
 from datetime import datetime
-from binanceapibase import binanceAPI
+from binanceapi.binanceapibase import binanceAPI
 
 class Position:
     def __init__(self, symbol : Symbol):
