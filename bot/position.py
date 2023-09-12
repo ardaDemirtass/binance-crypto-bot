@@ -21,12 +21,12 @@ class Position:
         if self.__InPosition:
             print("you cannot call start position function when you are in position")
         else:
-            #binanceAPI.buy(self.__Symbol.Symbol)
+            binanceAPI.buy(self.__Symbol.Symbol)
             pass
 
     def ExitPosition(self):
         if not self.__InPosition:
             print("you cannot call exit position function when you are not in position")
         else:
-            #binanceAPI.sell(self.__Symbol.Symbol)
+            binanceAPI.sell(self.__Symbol.Symbol)
             pass
