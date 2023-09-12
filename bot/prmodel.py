@@ -22,9 +22,8 @@ class PrModel(BaseModel):
         filename = f"{self.Symbol}/PR.pickle"
         pickle.dump(self, open(filename, "wb"))
 
-    def GetModel(self):
-        return self.__lr
-    
-    def GetPf(self):
-        return self.__pf
+    def Predict(self, pr):
+        x_poly = self.__pf.fit_transform(pr)
+        prediction = self.scy.inverse_transform(self.__lr.predict(self.scx.fit_transform(x_poly)))
+        return prediction
     

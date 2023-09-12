@@ -94,5 +94,5 @@ class BaseModel(ABC):
         pass
 
     @abstractmethod
-    def GetModel(self):
+    def Predict(self, pr):
         pass

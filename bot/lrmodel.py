@@ -24,9 +24,10 @@ class LrModel(BaseModel):
             os.mkdir(f"{self.Symbol}")
         modelFileName = f"{self.Symbol}/LR.pickle"
         pickle.dump(self, open(modelFileName, "wb"))
-
-    def GetModel(self):
-        return self.__lr
+    
+    def Predict(self, pr):
+        prediction = self.scy.inverse_transform(self.__lr.predict(self.scx.fit_transform(pr)))
+        return prediction
 
 
 """

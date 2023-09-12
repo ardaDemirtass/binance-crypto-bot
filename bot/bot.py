@@ -30,11 +30,8 @@ class Bot:
         for symbol in self.__Symbols:
             currentPrice = binanceAPI.currentPrice(symbol=symbol)
             model = self.Models[symbol]
-            if self.__RegType == "PR":
-                le = model.GetPf().fit_transform([[len(binanceAPI.priceHistory(symbol)) - 1]])
-            else:
-                le = [[len(binanceAPI.priceHistory(symbol)) - 1]]
-            predict = model.scy.inverse_transform(model.GetModel().predict(model.scx.fit_transform(le)).reshape(1,1))
+            le = [[len(binanceAPI.priceHistory(symbol)) - 1]]
+            predict = model.Predict(le)
             errorMargin = ((predict - currentPrice) / currentPrice) * 100
             st = f"""
 **********

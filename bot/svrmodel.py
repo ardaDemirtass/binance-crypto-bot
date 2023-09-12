@@ -19,5 +19,6 @@ class SvrModel(BaseModel):
         modelFileName = f"{self.Symbol}/SVR.pickle"
         pickle.dump(self, open(modelFileName, "wb"))
 
-    def GetModel(self):
-        return self.__svr
+    def Predict(self, pr):
+        prediction = self.scy.inverse_transform(self.__svr.predict(self.scx.fit_transform(pr)).reshape(1,1))
+        return prediction
