@@ -79,7 +79,7 @@ class BaseModel(ABC):
         return pd.concat([self.__input, self.__output], axis=1)
 
     def __CreateTrainTest(self):
-        self.__xtrain, self.__xtest, self.__ytrain, self.__ytest = train_test_split(self.__input.values, self.__output.values, test_size=0.33, random_state=0)
+        self.__xtrain, self.__xtest, self.__ytrain, self.__ytest = train_test_split(self.__input.values, self.__output.values, test_size=0.3, random_state=0)
         self.__scaledx = self.__scx.fit_transform(self.__xtrain)
         self.__scaledy = self.__scy.fit_transform(self.__ytrain)
 
@@ -96,4 +96,8 @@ class BaseModel(ABC):
 
     @abstractmethod
     def Predict(self, pr):
+        pass
+
+    @abstractmethod
+    def PredictAvg(self, x):
         pass

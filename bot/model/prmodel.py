@@ -22,10 +22,19 @@ class PrModel(BaseModel):
         if not os.path.exists(f"savedsymbols/{self.Symbol}"):
             os.mkdir(f"savedsymbols/{self.Symbol}")
         filename = f"savedsymbols/{self.Symbol}/PR.pickle"
+        if os.path.isfile(filename):
+            os.remove(filename)
         pickle.dump(self, open(filename, "wb"))
 
     def Predict(self, pr):
         x_poly = self.__pf.fit_transform(self.scx.fit_transform(pr))
         prediction = self.scy.inverse_transform(self.__lr.predict(x_poly))
         return prediction
+    
+    def PredictAvg(self, x):
+        sum = 0
+        for i in x:
+            sum+= self.Predict([[i]])
+        return sum / 700
+
     

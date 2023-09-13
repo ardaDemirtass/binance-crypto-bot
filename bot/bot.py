@@ -6,6 +6,8 @@ from log.log import Log
 import time
 from sklearn.preprocessing import PolynomialFeatures
 import numpy as np
+from model.modelbase import BaseModel
+import pandas as pd
 
 class Bot:
     def __init__(self, symbols : list, regtype:str):
@@ -13,39 +15,42 @@ class Bot:
         self.__InPosition = False
         self.__Position = None
         self.__RegType = regtype
+        self.__models = {}
 
-    @property
-    def Models(self):
-        models = {}
+    def SetModels(self):
         for symbol in self.__Symbols:
             model = LoadModel(symbol=symbol, type=self.__RegType)
-            models[symbol] = model.Model   
-        return models
+            self.__models[symbol] = model.Model   
 
     @property
     def Position(self):
         return self.__Position
-
+    
     def __SearchForPosition(self):
         for symbol in self.__Symbols:
             currentPrice = binanceAPI.currentPrice(symbol=symbol)
-            model = self.Models[symbol]
-            le = [[len(binanceAPI.priceHistory(symbol))]]
+            ph = binanceAPI.priceHistory(symbol)
+            model = self.__models[symbol]
+            print(len(ph))
+            le = [[len(ph)]]
             predict = model.Predict(le)
-            errorMargin = ((predict - currentPrice) / currentPrice) * 100
+            fpav = model.PredictAvg(range(len(ph) - 1, len(ph) + 700))
+            pfpav = ((fpav - currentPrice) / currentPrice) * 100
             st = f"""
 **********
 SYMBOL : {symbol}
 PREDICTION : {predict}
 CURRENT PRICE : {currentPrice}
-ERROR MARGIN : {errorMargin}
+FUTURE PRICE AVG : {fpav}
+PRICE / FPAV : {pfpav}
 ALGORITHM : {self.__RegType}
 **********
 """
             print(st)
-            if currentPrice < predict:
-                sp = currentPrice + (currentPrice * 5) / 100
-                stp = currentPrice - (currentPrice * 5) / 100
+            rate = fpav / currentPrice
+            if rate > 101/100:
+                sp = currentPrice * rate
+                stp = currentPrice * (1 / rate)
                 PSymbol = Symbol(symbol=symbol, buyprice=currentPrice, sellprice=sp, stopprice=stp)
                 self.__Position = Position(symbol=PSymbol)
                 self.__Position.StartPosition()

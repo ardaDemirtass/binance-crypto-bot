@@ -23,18 +23,18 @@ while True:
     command = input('->')
     commandSplit = command.split('-')
     if commandSplit[0] == "**drawgraph":
-        xyz = XY(commandSplit[1])#class to create x and y data of model
-        lrmodel = LrModel(xyz, commandSplit[1])
-        svrmodel = SvrModel(xyz, commandSplit[1])
-        prmodel = PrModel(xyz, commandSplit[1], 4)
+        xy = XY(commandSplit[1])#class to create x and y data of model
+        lrmodel = LrModel(xy, commandSplit[1])
+        svrmodel = SvrModel(xy, commandSplit[1])
+        prmodel = PrModel(xy, commandSplit[1], 4)
         lrmodel.CreateModel()
         svrmodel.CreateModel()
         prmodel.CreateModel()
-        arr1 = xyz.X.values
-        arr2 = np.array(range(len(arr1) + 1, len(arr1) + 400))
+        arr1 = xy.X.values
+        arr2 = np.array(range(len(arr1), len(arr1) + 700))
         arrconc = np.append(arr1, arr2)
         arrconcdf = pd.DataFrame(data=arrconc, index=arrconc, columns=['x'])
-        DrawGraph(xyz, arrconcdf, [lrmodel.Predict(arrconcdf),prmodel.Predict(arrconcdf),svrmodel.Predict(arrconcdf)], commandSplit[1])
+        DrawGraph(xy, arrconcdf, [lrmodel.Predict(arrconcdf),prmodel.Predict(arrconcdf),svrmodel.Predict(arrconcdf)], commandSplit[1])
 
     if commandSplit[0] == "**runbot":
         break
@@ -61,11 +61,12 @@ while True:
                 model = SvrModel(xy, symbol)
             model.CreateModel()
             model.SaveModel()
-    elif counter == 60:
-            counter = 0
+        bot.SetModels()
     bot.Start()
     counter += 1
     print(counter)
+    if counter == 10:
+        counter = 0
     time.sleep(1)
     
 

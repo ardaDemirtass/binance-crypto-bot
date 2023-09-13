@@ -20,9 +20,17 @@ class SvrModel(BaseModel):
         if not os.path.exists(f"savedsymbols/{self.Symbol}"):
             os.mkdir(f"savedsymbols/{self.Symbol}")
         modelFileName = f"savedsymbols/{self.Symbol}/SVR.pickle"
+        if os.path.isfile(modelFileName):
+            os.remove(modelFileName)
         pickle.dump(self, open(modelFileName, "wb"))
 
     def Predict(self, pr):
         prediction = self.scy.inverse_transform(self.__svr.predict(self.scx.fit_transform(pr)).reshape(-1,1))
         return prediction
+    
+    def PredictAvg(self, x):
+        sum = 0
+        for i in x:
+            sum+= self.Predict([[i]])
+        return sum / 700
     

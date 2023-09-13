@@ -17,18 +17,28 @@ class LrModel(BaseModel):
         self.__lr = LinearRegression()
 
     def CreateModel(self):
-        self.__lr.fit(self.ScaledX, self.ScaledY)
+        self.__lr.fit(self.Xtrain, self.Ytrain)
         self.SetIsModelCreated()
     
     def SaveModel(self):
         if not os.path.exists(f"savedsymbols/{self.Symbol}"):
             os.mkdir(f"savedsymbols/{self.Symbol}")
         modelFileName = f"savedsymbols/{self.Symbol}/LR.pickle"
+        if os.path.isfile(modelFileName):
+            os.remove(modelFileName)
         pickle.dump(self, open(modelFileName, "wb"))
     
     def Predict(self, pr):
-        prediction = self.scy.inverse_transform(self.__lr.predict(self.scx.fit_transform(pr)))
+        #prediction = self.scy.inverse_transform(self.__lr.predict(self.scx.fit_transform(pr)))
+        #return prediction
+        prediction = self.__lr.predict(pr)
         return prediction
+    
+    def PredictAvg(self, x):
+        sum = 0
+        for i in x:
+            sum+= self.Predict([[i]])
+        return sum / 700
 
 
 """
