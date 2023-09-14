@@ -6,10 +6,11 @@ import os
 import pickle
 import matplotlib.pyplot as plt
 from xy import XY
+import statsmodels as sm
 
 class SvrModel(BaseModel):
-    def __init__(self, xy : XY, symbol: str):
-        super().__init__(xy, symbol)
+    def __init__(self, xy : XY):
+        super().__init__(xy)
         self.__svr = SVR(kernel="rbf") 
 
     def CreateModel(self):
@@ -33,4 +34,6 @@ class SvrModel(BaseModel):
         for i in x:
             sum+= self.Predict([[i]])
         return sum / 700
+    
+
     

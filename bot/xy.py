@@ -27,6 +27,10 @@ class XY:
         self.__Y = all.iloc[:,1:2]
 
     @property
+    def Symbol(self):
+        return self.__Symbol
+
+    @property
     def X(self):
         return self.__X
     

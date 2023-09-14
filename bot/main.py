@@ -24,9 +24,9 @@ while True:
     commandSplit = command.split('-')
     if commandSplit[0] == "**drawgraph":
         xy = XY(commandSplit[1])#class to create x and y data of model
-        lrmodel = LrModel(xy, commandSplit[1])
-        svrmodel = SvrModel(xy, commandSplit[1])
-        prmodel = PrModel(xy, commandSplit[1], 4)
+        lrmodel = LrModel(xy)
+        svrmodel = SvrModel(xy)
+        prmodel = PrModel(xy, 3)
         lrmodel.CreateModel()
         svrmodel.CreateModel()
         prmodel.CreateModel()
@@ -69,6 +69,3 @@ while True:
         counter = 0
     time.sleep(1)
     
-
-
-

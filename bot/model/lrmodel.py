@@ -10,10 +10,11 @@ from sklearn.preprocessing import StandardScaler
 from model.prmodel import PrModel
 from xy import XY
 import numpy as np
+import statsmodels as sm
 
 class LrModel(BaseModel):
-    def __init__(self, xy : XY, symbol : str):
-        super().__init__(xy, symbol)
+    def __init__(self, xy : XY):
+        super().__init__(xy)
         self.__lr = LinearRegression()
 
     def CreateModel(self):
@@ -39,6 +40,8 @@ class LrModel(BaseModel):
         for i in x:
             sum+= self.Predict([[i]])
         return sum / 700
+    
+
 
 
 """

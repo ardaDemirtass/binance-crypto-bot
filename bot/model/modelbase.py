@@ -8,7 +8,7 @@ from sklearn.model_selection import train_test_split
 from xy import XY
 
 class BaseModel(ABC):
-    def __init__(self, xy : XY, symbol : str):
+    def __init__(self, xy : XY):
         self.__input = xy.X
         self.__output = xy.Y
         self.__xtrain : pd.DataFrame
@@ -21,7 +21,7 @@ class BaseModel(ABC):
         self.__scaledy = None
         self.__GetDataReady()
         self.__isModelCreated = False
-        self.__symbol = symbol
+        self.__symbol = XY.Symbol
 
     def SetIsModelCreated(self):
         self.__isModelCreated = True
