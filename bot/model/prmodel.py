@@ -27,7 +27,7 @@ class PrModel(BaseModel):
         pickle.dump(self, open(filename, "wb"))
 
     def Predict(self, pr):
-        x_poly = self.__pf.fit_transform(self.scx.fit_transform(pr))
+        x_poly = self.__pf.transform(self.scx.transform(pr))
         prediction = self.scy.inverse_transform(self.__lr.predict(x_poly))
         return prediction
     

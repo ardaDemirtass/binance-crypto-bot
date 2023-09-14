@@ -40,7 +40,7 @@ while True:
         break
 
     if commandSplit[0] == "**help":
-        print("to draw graph, type **drawgraph-SYMBOL-ALGORITH(example:**drawgraph-ETHBUSD-LR)")
+        print("to draw graph, type **drawgraph-SYMBOL(example:**drawgraph-ETHBUSD)")
         print("to run bot, type **runbot")
 
 symbols = input("WRITE SYMBOLS (EXAMPLE:ETHBUSD,BTCBUSD) : ")

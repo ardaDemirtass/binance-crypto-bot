@@ -25,7 +25,7 @@ class SvrModel(BaseModel):
         pickle.dump(self, open(modelFileName, "wb"))
 
     def Predict(self, pr):
-        prediction = self.scy.inverse_transform(self.__svr.predict(self.scx.fit_transform(pr)).reshape(-1,1))
+        prediction = self.scy.inverse_transform(self.__svr.predict(self.scx.transform(pr)).reshape(-1,1))
         return prediction
     
     def PredictAvg(self, x):

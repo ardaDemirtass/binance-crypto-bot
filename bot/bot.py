@@ -31,7 +31,6 @@ class Bot:
             currentPrice = binanceAPI.currentPrice(symbol=symbol)
             ph = binanceAPI.priceHistory(symbol)
             model = self.__models[symbol]
-            print(len(ph))
             le = [[len(ph)]]
             predict = model.Predict(le)
             fpav = model.PredictAvg(range(len(ph) - 1, len(ph) + 700))
