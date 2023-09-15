@@ -21,10 +21,14 @@ class BaseModel(ABC):
         self.__scaledy = None
         self.__GetDataReady()
         self.__isModelCreated = False
-        self.__symbol = XY.Symbol
+        self.__symbol = xy.Symbol
 
     def SetIsModelCreated(self):
         self.__isModelCreated = True
+
+    @property
+    def Symbol(self):
+        return self.__symbol
 
     @property
     def ScaledX(self):

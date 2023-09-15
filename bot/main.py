@@ -26,15 +26,14 @@ while True:
         xy = XY(commandSplit[1])#class to create x and y data of model
         lrmodel = LrModel(xy)
         svrmodel = SvrModel(xy)
-        prmodel = PrModel(xy, 3)
         lrmodel.CreateModel()
         svrmodel.CreateModel()
-        prmodel.CreateModel()
         arr1 = xy.X.values
         arr2 = np.array(range(len(arr1), len(arr1) + 700))
+        #arr2 = arr2.reshape(len(arr2), 1)
         arrconc = np.append(arr1, arr2)
-        arrconcdf = pd.DataFrame(data=arrconc, index=arrconc, columns=['x'])
-        DrawGraph(xy, arrconcdf, [lrmodel.Predict(arrconcdf),prmodel.Predict(arrconcdf),svrmodel.Predict(arrconcdf)], commandSplit[1])
+        arrconc = arrconc.reshape(len(arrconc), 1)
+        DrawGraph(xy, arrconc, [lrmodel.Predict(arrconc),svrmodel.Predict(arrconc)], commandSplit[1])
 
     if commandSplit[0] == "**runbot":
         break
@@ -45,7 +44,7 @@ while True:
 
 symbols = input("WRITE SYMBOLS (EXAMPLE:ETHBUSD,BTCBUSD) : ")
 symbolList = symbols.split(',')
-regtype = input("CHOOSE THE ALGORITHM (TYPE LR or PR or SVR) : ")
+regtype = input("CHOOSE THE ALGORITHM (TYPE LR or SVR) : ")
 
 bot = Bot(symbolList, regtype)
 counter = 0
@@ -54,11 +53,9 @@ while True:
         for symbol in symbolList:
             xy = XY(symbol)#class to create x and y data of model
             if regtype == "LR":
-                model = LrModel(xy, symbol)
-            elif regtype == "PR":
-                model = PrModel(xy, symbol, 4)
+                model = LrModel(xy)
             elif regtype == "SVR":
-                model = SvrModel(xy, symbol)
+                model = SvrModel(xy)
             model.CreateModel()
             model.SaveModel()
         bot.SetModels()

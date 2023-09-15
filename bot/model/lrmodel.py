@@ -18,7 +18,7 @@ class LrModel(BaseModel):
         self.__lr = LinearRegression()
 
     def CreateModel(self):
-        self.__lr.fit(self.Xtrain, self.Ytrain)
+        self.__lr.fit(self.ScaledX, self.ScaledY)
         self.SetIsModelCreated()
     
     def SaveModel(self):
@@ -32,7 +32,7 @@ class LrModel(BaseModel):
     def Predict(self, pr):
         #prediction = self.scy.inverse_transform(self.__lr.predict(self.scx.fit_transform(pr)))
         #return prediction
-        prediction = self.__lr.predict(pr)
+        prediction = self.scy.inverse_transform(self.__lr.predict(self.scx.transform(pr)))
         return prediction
     
     def PredictAvg(self, x):
